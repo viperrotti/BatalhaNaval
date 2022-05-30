@@ -78,8 +78,8 @@ for (int l = 0; l < 10; l++)
 }
 
 int acertosJog1 = 0;
-int acertosJog2 = 0; 
-int errosJog1 = 0; 
+int acertosJog2 = 0;
+int errosJog1 = 0;
 int errosJog2 = 0;
 
 do
@@ -94,7 +94,7 @@ do
     Console.WriteLine("Pressione qualquer tecla para continuar"!);
     Console.ReadLine();
 
-    if(acertosJog1 < 30) 
+    if (acertosJog1 < 30)
     {
         if (opcao == "2")
         {
@@ -126,7 +126,7 @@ do
                         tirosJogador2[linComp, colComp] = 'X';
                         Console.Clear();
                         Console.WriteLine($"Computador efetuou disparo:");
-                        Console.WriteLine("O seu oponente acertou um navio.");
+                        Console.WriteLine("O seu oponente acertou um navio.\n");
                         Console.WriteLine(ImprimeTabela(tirosJogador2));
                     }
                     else if (jogador1[linComp, colComp] == ' ')
@@ -134,7 +134,7 @@ do
                         tirosJogador2[linComp, colComp] = 'A';
                         Console.Clear();
                         Console.WriteLine($"Computador efetuou disparo:");
-                        Console.WriteLine("Tiro n'água!");
+                        Console.WriteLine("Tiro n'água!\n");
                         Console.WriteLine(ImprimeTabela(tirosJogador2));
                     }
                 }
@@ -154,7 +154,7 @@ while (!(acertosJog1 == 30 || acertosJog2 == 30));
 
 Console.Clear();
 
-if(opcao == "2")
+if (opcao == "2")
 {
     if (acertosJog1 == 30)
         Console.WriteLine($"JOGADOR 1 É O VENCEDOR! PARABÉNS, {nome1}!");
@@ -163,10 +163,10 @@ if(opcao == "2")
 }
 else
 {
-    if (acertosJog1 == 30) 
+    if (acertosJog1 == 30)
         Console.WriteLine($"VOCÊ VENCEU! PARABÉNS, {nome1}!");
     else
-        Console.WriteLine($"VOCÊ PERDEU. TENTE NOVAMENTE");
+        Console.WriteLine($"VOCÊ PERDEU. TENTE NOVAMENTE.");
 }
 
 
@@ -213,19 +213,22 @@ static int MatrizCounter(char[,] matriz, char valor)
     return counter;
 }
 
+static int ContarItens(List<string> lista, string item)
+{
+    int counter = 0;
+    foreach (string s in lista)
+    {
+        if (s == item)
+            counter++;
+    }
+    return counter;
+}
+
 static int CoordColuna(string col)
 {
     int coluna = 0;
-    var letraColuna = new Dictionary<string, int> { { "A", 0 },
-                                                    { "B", 1 },
-                                                    { "C", 2 },
-                                                    { "D", 3 },
-                                                    { "E", 4 },
-                                                    { "F", 5 },
-                                                    { "G", 6 },
-                                                    { "H", 7 },
-                                                    { "I", 8 },
-                                                    { "J", 9 } };
+    var letraColuna = new Dictionary<string, int> { { "A", 0 },{ "B", 1 },{ "C", 2 },{ "D", 3 },{ "E", 4 },
+                                                    { "F", 5 },{ "G", 6 },{ "H", 7 },{ "I", 8 },{ "J", 9 } };
 
     coluna = letraColuna[col];
     return coluna;
@@ -287,17 +290,16 @@ static void ConfiguraJogador(string nome, int numero, char[,] tabuleiro)
 
     for (int i = 0; i < 10; i++)
     {
-        Console.WriteLine("Este é seu tabuleiro:\n");
+        Console.WriteLine("Jogador " + numero + ": " + nome + ". Este é seu tabuleiro:\n");
         string tab = ImprimeTabela(tabuleiro);
         Console.WriteLine(tab);
         Console.WriteLine();
 
-        Console.WriteLine(@"Jogador " + numero + ": " + nome + ".\n" +
-        "Escolha seu navio:\n" +
-        "PS - Porta-Aviões (5 quadrantes)\n" +
-        "NT - Navio-Tanque (4 quadrantes)\n" +
-        "DS - Destroyer (3 quadrantes)\n" +
-        "SB - Submarino (2 quadrantes)\n");
+        Console.WriteLine(@$"Escolha seu navio:" + "\n" +
+        "PS - Porta-Aviões (Tamanho: 5 quadrantes. Quantidade: " + ContarItens(naviosDisp, "PS") + ")\n" +
+        "NT - Navio-Tanque (Tamanho: 4 quadrantes. Quantidade: " + ContarItens(naviosDisp, "NT") + ")\n" +
+        "DS - Destroyer (Tamanho: 3 quadrantes. Quantidade: " + ContarItens(naviosDisp, "DS") + ")\n" +
+        "SB - Submarino (Tamanho: 2 quadrantes. Quantidade: " + ContarItens(naviosDisp, "SB") + ")\n");
         embarcacao = Console.ReadLine().ToUpper();
 
         do
@@ -485,7 +487,7 @@ static bool ValidaDisparoComputador(int col, int lin, char[,] tabuleiroJogo)
     return tiroValido;
 }
 
-static void AdicionaNavioComp (int tamanho, char[,] tabuleiro)
+static void AdicionaNavioComp(int tamanho, char[,] tabuleiro)
 {
     int linFim = 0;
     int colFim = 0;
